@@ -9,7 +9,7 @@ import BottomNav from "../components/BottomNav";
 
 export default function Home({ exploreData, cardData }) {
   return (
-    <div>
+    <div className={"dark:text-white dark:bg-gray-700"}>
       <Head>
         <title>
           AirBnb: Holiday, Rental, Cabins, Beach Houses, Unique Homes and
@@ -19,10 +19,7 @@ export default function Home({ exploreData, cardData }) {
       </Head>
       <Header />
       <Banner />
-      <main
-        name={"loactions"}
-        className="dark:text-white dark:bg-gray-700 max-w-7xl mx-auto px-8 sm:px-16"
-      >
+      <main name={"loactions"} className=" max-w-7xl mx-auto px-8 sm:px-16">
         <section className="pt-6">
           {" "}
           <h2 className="text-4x1 font-semibold pb-5">Explore Nearby</h2>
