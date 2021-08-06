@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import Map from "../components/Map";
 import Footer from "../components/Footer";
 import { useRouter } from "next/dist/client/router";
 import InfoCard from "../components/infoCard";
@@ -38,6 +39,9 @@ function Search({ searchResults }) {
               )
             )}
           </div>
+        </section>
+        <section className={"hidden lg:min-w-[450px] md:inline-flex"}>
+          <Map searchResults={searchResults} />
         </section>
       </main>
       <Footer />
