@@ -1,29 +1,59 @@
-import useDarkMode from "../hooks/useDarkMode";
-const Header = () => {
-  const [colorTheme, setTheme] = useDarkMode();
+import { useState } from "react";
+import { DateRangePicker } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { useRouter } from "next/router";
+import {
+  SearchIcon,
+  GlobeAltIcon,
+  MenuIcon,
+  UserCircleIcon,
+} from "@heroicons/react/solid";
+
+const Header = ({ hidden, position }) => {
+  const [input, setInput] = useState("");
+  const [noOfGuests, setNoOfGuests] = useState(0);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const router = useRouter();
+
+  const selectionRange = {
+    startDate: startDate,
+    endDate: endDate,
+    key: "selection",
+  };
+
+  function handleSelect(ranges) {
+    setStartDate(ranges.selection.startDate);
+    setEndDate(ranges.selection.endDate);
+  }
+
   return (
     <header
       className={
-        "sticky dark:bg-gray-700 bg-white top-0 z-50 grid grid-flow-row grid-cols-3 shadow-lg p-5 md:px-10"
+        "sticky ${position}  md:grid-cols-3  bg-white  z-50 grid grid-flow-row grid-cols-2 shadow-lg p-5 md:px-10"
       }
     >
-      <div className={"relative flex h-10 my-auto"}>
+      <div className={"relative flex h-10 my-auto "}>
         <img
+          onClick={() => router.push("/")}
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/2560px-Airbnb_Logo_B%C3%A9lo.svg.png"
           alt=""
           className={"cursor-pointer"}
         />
       </div>
-      <div className="hidden sm:inline-flex items-center border-2 rounded-full py-2 shadow-md">
+      <div className="inline-flex items-center border-2 rounded-full py-2 shadow-md">
         {" "}
         <input
-          className="dark:text-white flex-grow pl-5 bg-transparent outline-none"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          className="flex-grow pl-5 bg-transparent outline-none"
           type="text"
           placeholder="Start your search"
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="dark:text-white hidden md:inline-flex h-8 bg-red-400 text-white  rounded-full p-2 cursor-pointer md:mx-2"
+          className="hidden md:inline-flex h-8 bg-red-400 text-white  rounded-full p-2 cursor-pointer md:mx-2"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -36,65 +66,21 @@ const Header = () => {
           />
         </svg>
       </div>
-      <div className="items-center space-x-4 justify-end text-gray-500 dark:text-gray-100 hidden sm:inline-flex">
+      <div className="hidden  items-center space-x-4 justify-end text-gray-500 md:inline-flex">
         <p
           className={
-            "hidden lg:inline-flex py-2 px-4 rounded-full cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600"
+            "hidden lg:inline-flex py-2 px-4 rounded-full cursor-pointer hover:bg-gray-100 "
           }
         >
           Become a Host
         </p>
-        {colorTheme === "light" ? (
-          <button
-            className={
-              "rounded-full p-2 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-600"
-            }
-            onClick={() => setTheme("light")}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="dark:text-white h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-              />
-            </svg>
-          </button>
-        ) : (
-          <button
-            className={"rounded-full p-2 focus:outline-none hover:bg-gray-100 "}
-            onClick={() => setTheme("dark")}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="dark:text-white h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-              />
-            </svg>
-          </button>
-        )}
+
         <button
-          className={
-            "rounded-full p-2 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-600 "
-          }
+          className={"rounded-full p-2 focus:outline-none hover:bg-gray-100 "}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="dark:text-white h-5 w-5"
+            className="h-5 w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -107,10 +93,10 @@ const Header = () => {
             />
           </svg>
         </button>
-        <div className="transition ease-out duration-300 cursor-pointer hover:shadow-lg flex items-center space-x-2 border-2 p-2 rounded-full">
+        <div className=" transition ease-out duration-300 cursor-pointer hover:shadow-lg flex items-center space-x-2 border-2 p-2 rounded-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="dark:text-white h-6 w-6"
+            className="h-6 w-6"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -124,7 +110,7 @@ const Header = () => {
           </svg>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="dark:text-white h-5 w-5"
+            className="h-5 w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -138,6 +124,66 @@ const Header = () => {
           </svg>
         </div>
       </div>
+      {input && (
+        <div className="flex flex-col col-span-3 mx-auto mt-3 ">
+          <DateRangePicker
+            ranges={[selectionRange]}
+            minDate={new Date()}
+            rangeColors={["#FD5B61"]}
+            onChange={handleSelect}
+          />
+          <div className="flex items-center border-b mb-4">
+            <h2 className="text-2xl flex-grow font-semibold">
+              {" "}
+              Number of Guests{" "}
+            </h2>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+            </svg>
+            <input
+              value={noOfGuests}
+              onChange={(e) => setNoOfGuests(e.target.value)}
+              type="number"
+              min={0}
+              className="w-12 pl-2 text-1g outline-none text-red-400"
+            />{" "}
+          </div>
+          <div className="flex">
+            <button
+              className="flex-grow text-gray-500"
+              onClick={() => setInput("")}
+            >
+              Cancel
+            </button>{" "}
+            <button
+              disabled={!noOfGuests}
+              onClick={() => {
+                router.push({
+                  pathname: "/search",
+                  query: {
+                    location: input,
+                    startDate: startDate.toISOString(),
+                    endDate: endDate.toISOString(),
+                    noOfGuests,
+                  },
+                });
+                setInput("");
+                setNoOfGuests(1);
+                setStartDate(new Date());
+                setEndDate(new Date());
+              }}
+              className="flex-grow text-red-400"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

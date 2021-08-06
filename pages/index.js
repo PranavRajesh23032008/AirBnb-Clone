@@ -9,7 +9,7 @@ import BottomNav from "../components/BottomNav";
 
 export default function Home({ exploreData, cardData }) {
   return (
-    <div className={" dark:bg-gray-700"}>
+    <div className={" "}>
       <Head>
         <title>
           AirBnb: Holiday, Rental, Cabins, Beach Houses, Unique Homes and
@@ -17,12 +17,9 @@ export default function Home({ exploreData, cardData }) {
         </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <Header position="top-0" />
       <Banner />
-      <main
-        name={"loactions"}
-        className="dark:text-white max-w-7xl mx-auto px-8 sm:px-16"
-      >
+      <main name={"loactions"} className=" max-w-7xl mx-auto px-8 sm:px-16">
         <section className="pt-6">
           {" "}
           <h2 className="text-4x1 font-semibold pb-5">Explore Nearby</h2>
@@ -62,7 +59,6 @@ export default function Home({ exploreData, cardData }) {
       </main>
 
       <Footer />
-      <BottomNav />
     </div>
   );
 }
