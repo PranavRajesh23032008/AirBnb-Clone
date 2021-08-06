@@ -1,13 +1,14 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useRouter } from "next/dist/client/router";
-import InfoCard from "../components/InfoCard";
+import InfoCard from "../components/infoCard";
 
 function Search({ searchResults }) {
   const router = useRouter();
   const { location, guests } = router.query;
   return (
     <div className=" h-screen">
+      <title>PLaces to stay in {location}</title>
       <Header />
       <main className="max-w-7xl mb-10 mx-auto flex">
         <section className="flex-grow pt-14 px-6">
