@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }) {
         showSpinner={false}
         showOnShallow={true}
       />
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </>
   );
 }
