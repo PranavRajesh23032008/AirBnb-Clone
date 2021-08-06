@@ -21,14 +21,11 @@ function InfoCard({ img, location, title, description, star, price, total }) {
       <div className="flex flex-col flex-grow pl-5">
         <div className="flex justify-between">
           <p className="text-sm  text-gray-500">{location}</p>
-          <IconButton>
+          <IconButton onClick={() => setLiked(!liked)}>
             {liked ? (
-              <HeartIcon2
-                onClick={() => setLiked(!liked)}
-                className="h-8 text-red-500"
-              />
+              <HeartIcon2 className="h-8 text-red-500" />
             ) : (
-              <HeartIcon onClick={() => setLiked(!liked)} className="h-8" />
+              <HeartIcon className="h-8" />
             )}
           </IconButton>
         </div>
