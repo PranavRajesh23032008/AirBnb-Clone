@@ -3,17 +3,32 @@ import Map from "../components/Map";
 import Footer from "../components/Footer";
 import { useRouter } from "next/dist/client/router";
 import InfoCard from "../components/infoCard";
+import { format } from "date-fns";
+
+import { useEffect } from "react";
+import { useState } from "react";
 
 function Search({ searchResults }) {
   const router = useRouter();
-  const { location, guests } = router.query;
+  const { location, startDate, endDate, guests } = router.query;
+  const [formattedStartDate, setFormattedStartDate] = useState(undefined);
+  const [formattedEndDate, setFormattedEndDate] = useState(undefined);
+
+  const range = `${formattedStartDate} - ${formattedEndDate}`;
+
+  useEffect(() => {
+    setFormattedStartDate(format(new Date(startDate), "dd MMMM yy"));
+    setFormattedEndDate(format(new Date(endDate), "dd MMMM yy"));
+  }, []);
   return (
     <div className=" h-screen">
       <title>Places to stay in {location}</title>
       <Header />
       <main className="max-w-7xl mb-10 mx-auto flex">
         <section className="flex-grow pt-14 px-6">
-          <p className="text-xs">300+ Stays - for {guests} guests</p>
+          <p className="text-xs">
+            300+ Stays - <b>{range}</b> - for {guests} guests
+          </p>
           <h1 className="text-3xl font-semibold mt-2 mb-6">
             Stays in {location}
           </h1>

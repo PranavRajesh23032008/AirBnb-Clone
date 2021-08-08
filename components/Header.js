@@ -1,14 +1,8 @@
 import { useState } from "react";
-import { DateRangePicker } from "react-date-range";
+import { DateRange, DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { useRouter } from "next/router";
-import {
-  SearchIcon,
-  GlobeAltIcon,
-  MenuIcon,
-  UserCircleIcon,
-} from "@heroicons/react/solid";
 
 const Header = ({ hidden, position }) => {
   const [input, setInput] = useState("");
@@ -126,12 +120,22 @@ const Header = ({ hidden, position }) => {
       </div>
       {input && (
         <div className="flex flex-col col-span-3 mx-auto mt-3 ">
-          <DateRangePicker
-            ranges={[selectionRange]}
-            minDate={new Date()}
-            rangeColors={["#FD5B61"]}
-            onChange={handleSelect}
-          />
+          <div className={"hidden md:inline-flex"}>
+            <DateRangePicker
+              ranges={[selectionRange]}
+              minDate={new Date()}
+              rangeColors={["#FD5B61"]}
+              onChange={handleSelect}
+            />
+          </div>
+          <div className={"md:hidden flex "}>
+            <DateRange
+              ranges={[selectionRange]}
+              minDate={new Date()}
+              rangeColors={["#FD5B61"]}
+              onChange={handleSelect}
+            />
+          </div>
           <div className="flex items-center border-b mb-4">
             <h2 className="text-2xl flex-grow font-semibold">
               {" "}
@@ -166,6 +170,7 @@ const Header = ({ hidden, position }) => {
                 router.push({
                   pathname: "/search",
                   query: {
+                    guests: noOfGuests,
                     location: input,
                     startDate: startDate.toISOString(),
                     endDate: endDate.toISOString(),
